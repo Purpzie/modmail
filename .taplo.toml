@@ -1,0 +1,10 @@
+[formatting]
+array_auto_collapse = false
+array_auto_expand = false
+indent_string = '	'
+reorder_keys = true
+
+[[rule]]
+formatting = { reorder_keys = false }
+include = ["**/Cargo.toml"]
+keys = ["package", "dependencies.*", "build-dependencies.*", "dev-dependencies.*"]

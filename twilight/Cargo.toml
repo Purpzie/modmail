@@ -1,0 +1,14 @@
+[package]
+name = "twilight"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+paste = {version = "1.0.12", default-features = false}
+twilight-cache-inmemory = {version = "0.15.2", features = ["permission-calculator"], default-features = false}
+twilight-gateway = {version = "0.15.2", features = ["native", "zlib-stock"], default-features = false}
+twilight-http = {version = "0.15.2", features = ["native", "decompression"], default-features = false}
+twilight-model = {version = "0.15.2", default-features = false}
+twilight-util = {version = "0.15.2", features = ["builder", "snowflake"], default-features = false}
+twilight-validate = {version = "0.15.1", default-features = false}
