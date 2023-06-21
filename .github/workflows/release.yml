@@ -1,0 +1,64 @@
+name: Release
+on:
+  release:
+    types:
+      - published
+permissions:
+  contents: write
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        job:
+          - name: linux-gnu-x86_64
+            os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - name: linux-musl-x86_64
+            os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            cross: true
+          - name: windows-msvc-x86_64
+            os: windows-latest
+            target: x86_64-pc-windows-msvc
+          - name: mac-darwin-x86_64
+            os: macos-latest
+            target: x86_64-apple-darwin
+          - name: raspi-0_1
+            os: ubuntu-latest
+            target: arm-unknown-linux-musleabihf
+            cross: true
+          - name: raspi-2_3_4
+            os: ubuntu-latest
+            target: armv7-unknown-linux-musleabihf
+            cross: true
+    name: ${{ matrix.job.name }}
+    runs-on: ${{ matrix.job.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+      - name: Install rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          target: ${{ matrix.job.target }}
+      - name: Install cross
+        if: matrix.job.cross
+        run: |-
+          mkdir -p "$HOME/.local/bin"
+          pushd "$HOME/.local/bin"
+          wget https://github.com/cross-rs/cross/releases/latest/download/cross-x86_64-unknown-linux-gnu.tar.gz
+          tar xzvf ./cross-x86_64-unknown-linux-gnu.tar.gz
+          rm ./cross-x86_64-unknown-linux-gnu.tar.gz
+          popd
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Build
+        run: ${{ matrix.job.cross == true && 'cross' || 'cargo' }} build --release --target ${{ matrix.job.target }}
+      - name: Compress & upload
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |-
+          tar czf modmail-${{ matrix.job.name }}.tar.gz -C ./target/${{ matrix.job.target }}/release ${{ matrix.job.os == 'windows-latest' && 'modmail.exe' || 'modmail' }}
+          gh release upload ${GITHUB_REF#refs/tags/} modmail-${{ matrix.job.name }}.tar.gz
