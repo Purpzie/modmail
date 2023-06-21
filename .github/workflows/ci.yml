@@ -3,13 +3,30 @@ on:
   push:
     branches:
       - main
+    paths:
+      - migrations/**
+      - src/**
+      - twilight/**
+      - .rustfmt.toml
+      - Cargo.lock
+      - Cargo.toml
+      - build.rs
   pull_request:
     branches:
       - main
+    paths:
+      - migrations/**
+      - src/**
+      - twilight/**
+      - .rustfmt.toml
+      - Cargo.lock
+      - Cargo.toml
+      - build.rs
 env:
   CARGO_TERM_COLOR: always
   CARGO_INCREMENTAL: 0
   CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
+  RUSTFLAGS: -Cdebuginfo=1
 jobs:
   ci:
     runs-on: ubuntu-latest
