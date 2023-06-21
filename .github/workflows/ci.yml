@@ -4,6 +4,7 @@ on:
     branches:
       - main
     paths:
+      - .github/workflows/ci.yml
       - migrations/**
       - src/**
       - twilight/**
@@ -22,6 +23,8 @@ on:
       - Cargo.lock
       - Cargo.toml
       - build.rs
+permissions:
+  contents: read
 env:
   CARGO_TERM_COLOR: always
   CARGO_INCREMENTAL: 0
