@@ -40,6 +40,8 @@ jobs:
           components: clippy, rustfmt
       - name: Fetch cache
         uses: Swatinem/rust-cache@v2
+      - name: Add problem matchers
+        run: echo '::add-matcher::.github/rust_problem_matchers.json'
       - name: Clippy
         run: cargo clippy --all-targets -- -D warnings
       - name: Rustfmt
