@@ -31,6 +31,6 @@ serde = {version = "1.0.164", features = ["std", "derive"], default-features = f
 serde_yaml = {version = "0.9.21", default-features = false}
 sqlx = {version = "0.6.3", features = ["sqlite", "macros", "migrate", "runtime-tokio-rustls"], default-features = false}
 tinylog = {version = "4.0.0", features = ["log", "tracing", "detect-color", "parking_lot"], default-features = false}
-tokio = {version = "1.28.2", features = ["rt-multi-thread", "parking_lot", "signal"], default-features = false}
+tokio = {version = "1.29.1", features = ["rt-multi-thread", "parking_lot", "signal"], default-features = false}
 tracing = {version = "0.1.37", features = ["std", "max_level_debug", "release_max_level_debug"], default-features = false}
 tracing-subscriber = {version = "0.3.17", features = ["std", "registry", "parking_lot", "smallvec"], default-features = false}
