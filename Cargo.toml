@@ -27,7 +27,7 @@ dashmap = {version = "5.4.0", default-features = false}
 futures = {version = "0.3.28", features = ["std", "async-await"], default-features = false}
 indoc = {version = "2.0.1", default-features = false}
 log = {version = "0.4.19", features = ["std", "max_level_info", "release_max_level_info"], default-features = false}
-serde = {version = "1.0.164", features = ["std", "derive"], default-features = false}
+serde = {version = "1.0.166", features = ["std", "derive"], default-features = false}
 serde_yaml = {version = "0.9.21", default-features = false}
 sqlx = {version = "0.6.3", features = ["sqlite", "macros", "migrate", "runtime-tokio-rustls"], default-features = false}
 tinylog = {version = "4.0.0", features = ["log", "tracing", "detect-color", "parking_lot"], default-features = false}
